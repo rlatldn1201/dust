@@ -1,0 +1,373 @@
+/* 지역별 대기질 정보를 다양한 화면에서 편안하게 볼 수 있도록 꾸밉니다. */
+:root {
+  color-scheme: light;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: #17243b;
+  background: #f3f6fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --muted: #748198;
+  --line: #e5eaf2;
+  --blue: #4386ed;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 85% 0%, rgba(107, 165, 255, 0.14), transparent 34rem),
+    #f3f6fb;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.app {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 64px 0 32px;
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: #6b86ac;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: -0.07em;
+}
+
+.intro {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.panel {
+  border: 1px solid rgba(226, 233, 243, 0.9);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.91);
+  box-shadow: 0 16px 42px rgba(37, 59, 91, 0.07);
+}
+
+.summary {
+  padding: 22px 28px 26px;
+}
+
+.summary-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid var(--line);
+}
+
+.summary-top label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+#region-select {
+  min-width: 138px;
+  padding: 10px 38px 10px 14px;
+  border: 1px solid #dfe6f0;
+  border-radius: 12px;
+  outline: none;
+  color: #20304a;
+  background: #fff;
+  cursor: pointer;
+}
+
+#region-select:focus-visible {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(67, 134, 237, 0.16);
+}
+
+.summary-content {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 21px;
+}
+
+.summary-content h2 {
+  margin: 0;
+  color: #596a84;
+  font-size: 0.93rem;
+  font-weight: 700;
+}
+
+.average-value {
+  margin: 9px 0 0;
+  color: #17243b;
+  font-size: clamp(2.8rem, 8vw, 4.3rem);
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  line-height: 1;
+}
+
+.average-value span {
+  margin-left: 9px;
+  color: #7d8ba0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.average-description {
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.stations-section {
+  margin-top: 48px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 5px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.55rem;
+  letter-spacing: -0.055em;
+}
+
+.station-count {
+  margin: 0 0 3px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.status-message {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.status-message:empty {
+  display: none;
+}
+
+.station-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.station-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--card-border);
+  border-top: 4px solid var(--card-accent);
+  border-radius: 18px;
+  background: var(--card-background);
+  box-shadow: 0 8px 22px rgba(37, 59, 91, 0.045);
+}
+
+.station-card.grade-1 {
+  --card-accent: #4386ed;
+  --card-border: #dce9ff;
+  --card-background: #f7faff;
+  --grade-color: #3474d1;
+}
+
+.station-card.grade-2 {
+  --card-accent: #35a878;
+  --card-border: #d8efe5;
+  --card-background: #f7fcf9;
+  --grade-color: #25885f;
+}
+
+.station-card.grade-3 {
+  --card-accent: #f1a23b;
+  --card-border: #f7e7d0;
+  --card-background: #fffaf3;
+  --grade-color: #bf771c;
+}
+
+.station-card.grade-4 {
+  --card-accent: #e45b5b;
+  --card-border: #f5dddd;
+  --card-background: #fff8f8;
+  --grade-color: #cb4545;
+}
+
+.station-card.grade-unknown {
+  --card-accent: #9aa5b4;
+  --card-border: #e1e5eb;
+  --card-background: #f8f9fb;
+  --grade-color: #788493;
+}
+
+.station-card-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.station-card h3 {
+  overflow: hidden;
+  margin: 0;
+  font-size: 1.08rem;
+  letter-spacing: -0.045em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grade-badge {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: var(--grade-color);
+  background: color-mix(in srgb, var(--card-accent) 12%, white);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.measurement-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.measurement {
+  min-width: 0;
+}
+
+.measurement-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #7b8799;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.measurement-value {
+  display: block;
+  overflow: hidden;
+  color: #263650;
+  font-size: 1.16rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.measurement-value small {
+  margin-left: 3px;
+  color: #8793a4;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.measurement-value.not-measured {
+  color: #8994a4;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.measurement-time {
+  grid-column: 1 / -1;
+  padding-top: 11px;
+  border-top: 1px solid var(--card-border);
+}
+
+.measurement-time .measurement-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.page-footer {
+  margin-top: 38px;
+  padding-top: 18px;
+  border-top: 1px solid #e3e9f1;
+  color: #8894a5;
+  font-size: 0.78rem;
+}
+
+.page-footer p {
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .station-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .app {
+    width: min(100% - 32px, 430px);
+    padding-top: 36px;
+  }
+
+  .page-header {
+    margin-bottom: 23px;
+  }
+
+  .intro {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .summary {
+    padding: 17px 18px 20px;
+    border-radius: 19px;
+  }
+
+  .summary-content {
+    display: block;
+  }
+
+  .average-description {
+    margin-top: 12px;
+    text-align: left;
+  }
+
+  .stations-section {
+    margin-top: 37px;
+  }
+
+  .station-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .station-card {
+    padding: 18px;
+  }
+}
