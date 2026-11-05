@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- 대기 정보 조회는 서버리스 함수가 처리합니다. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3f6fb">
+  <title>우리 동네 대기질</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="page-header">
+      <p class="eyebrow">실시간 대기 정보</p>
+      <h1>우리 동네 대기질</h1>
+      <p class="intro">지역별 측정소의 미세먼지 정보를 한눈에 확인해 보세요.</p>
+    </header>
+
+    <section class="summary panel" aria-labelledby="summary-title">
+      <div class="summary-top">
+        <label for="region-select">시도 선택</label>
+        <select id="region-select" aria-label="대기 정보를 확인할 시도">
+          <option value="전국">전국</option>
+          <option value="서울" selected>서울</option>
+          <option value="부산">부산</option>
+          <option value="대구">대구</option>
+          <option value="인천">인천</option>
+          <option value="광주">광주</option>
+          <option value="대전">대전</option>
+          <option value="울산">울산</option>
+          <option value="세종">세종</option>
+          <option value="경기">경기</option>
+          <option value="강원">강원</option>
+          <option value="충북">충북</option>
+          <option value="충남">충남</option>
+          <option value="전북">전북</option>
+          <option value="전남">전남</option>
+          <option value="경북">경북</option>
+          <option value="경남">경남</option>
+          <option value="제주">제주</option>
+        </select>
+      </div>
+      <div class="summary-content">
+        <div>
+          <h2 id="summary-title">서울 평균 미세먼지</h2>
+          <p id="average-value" class="average-value" aria-live="polite">--<span>㎍/㎥</span></p>
+        </div>
+        <p id="average-description" class="average-description">측정소 정보를 불러오는 중입니다.</p>
+      </div>
+    </section>
+
+    <section class="stations-section" aria-labelledby="stations-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">측정소 정보</p>
+          <h2 id="stations-title">서울 측정소</h2>
+        </div>
+        <p id="station-count" class="station-count" aria-live="polite">불러오는 중</p>
+      </div>
+      <p id="status-message" class="status-message" role="status">대기 정보를 불러오고 있습니다.</p>
+      <div id="station-list" class="station-grid" aria-live="polite"></div>
+    </section>
+
+    <footer class="page-footer">
+      <p>자료 출처: 한국환경공단 에어코리아 대기오염정보</p>
+    </footer>
+  </main>
+</body>
+</html>
